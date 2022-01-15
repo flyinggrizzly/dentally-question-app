@@ -39,6 +39,17 @@ User -< AnsweredQuestion, through: :answer
 
 The last one may be a "future requirement", pending time.
 
+### Uniqueness constraints
+
+I've set a uniqueness constraint on the question title, knowing that it is
+probably a bad idea in a production situation.
+
+The reason for this is that I also know that in the long run we'd want to have
+some kind of deduplication logic in place on questions, and this is a fast and
+dirty way to point at the issue and the general... family of solutions we'd
+need. (Bonus: it also demonstrates I use database-level constraints to back
+critical logic).
+
 ### User modelling and auth
 
 For the sake of getting this complete in a short amount of time, I'm using
