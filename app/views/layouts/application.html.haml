@@ -7,22 +7,21 @@
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
-    %link{rel: "stylesheet", href: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"}
     = javascript_importmap_tags
   %body
     .navbar
       .container-fluid
         .navbar-brand
           %a{href: "#"} Questions!
-          %button.navbar-toggler
-            %span.navbar-toggler-icon
-          .collapse.navbar-collapse#navbarNav
-            %ul.navbar-nav
-              - if signed_in?
-                %li.nav-item Signed in as #{current_user.email}
-                %li.nav-item= button_to 'Sign out', sign_out_path, method: :delete
-              - else
-                %li.nav-item= button_to 'Sign in', sign_in_path
+        %ul.navbar-nav
+          - if signed_in?
+            %li.nav-item
+              %span.navbar-text Signed in as #{current_user.email}
+            %li.nav-item
+              = button_to 'Sign out', sign_out_path, method: :delete, class: 'btn btn-primary'
+          - else
+            %li.nav-item
+              %button.btn= link_to 'Sign in', sign_in_path
 
     .container
       .row
@@ -33,5 +32,4 @@
 
       = yield
 
-    %script{type: "text/javascript", src: "https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"}
 
