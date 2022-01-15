@@ -14,6 +14,7 @@
   - belongs_to question
   - body:text
 - [ ] set up view for users to view their questions and answers (users#show)
+- [ ] protect questions and answers from editing by non-owners
 
 ### Future development
 
