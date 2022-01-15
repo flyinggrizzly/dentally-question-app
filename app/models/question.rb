@@ -7,4 +7,8 @@ class Question < ApplicationRecord
   validates :body, presence: true
 
   delegate :email, to: :user, prefix: true
+
+  def has_answers?
+    answers.count > 0
+  end
 end
