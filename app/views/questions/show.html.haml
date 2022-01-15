@@ -1,15 +1,35 @@
-%p#notice= notice
+.row
+  .col
+    %p#notice= notice
 
-%p
-  %b User:
-  = @question.user
-%p
-  %b Title:
-  = @question.title
-%p
-  %b Body:
-  = @question.body
+    %p
+      %b Asked by:
+      = @question.user_email
+    %p
+      %b Title:
+      = @question.title
+    %p
+      %b Body:
+      = @question.body
 
-= link_to 'Edit', edit_question_path(@question)
-\|
-= link_to 'Back', questions_path
+    = link_to 'Edit', edit_question_path(@question)
+    \|
+    = link_to 'Back', questions_path
+
+%br
+
+- if @question.has_answers?
+  .row
+    .col
+      %h3 Answers so far
+      - @question.answers.each do |answer|
+        .answer
+          %p= answer.body
+          %aside.answered-by Answered by #{answer.answerer_email} on #{answer.created_at.iso8601}
+
+%br
+
+.row
+  .col
+    %h3 Answer this question:
+    = render partial: 'answers/form', locals: { answer: Answer.new, question: @question }
