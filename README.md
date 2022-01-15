@@ -1,24 +1,66 @@
-# README
+# Question/answer app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Plan:
 
-Things you may want to cover:
+- [ ] set up bootstrap
+- [ ] add simple user model (using clearance for auth, for simplicity)
+- [ ] add basic question scaffold
+  - handle auth
+  - belongs_to user
+  - title:string
+  - body:text
+- [ ] add basic answers scaffold
+  - belongs_to user
+  - belongs_to question
+  - body:text
+- [ ] set up view for users to view their questions and answers (users#show)
 
-* Ruby version
+### Future development
 
-* System dependencies
+- [ ] set up "chosen answer" behavior/functionality
+- [ ] do we need to give users a relationship to questions  they have submitted
+    answers for (e.g. `has_many :answered_questions, class: 'Question', through:
+    :answers`) (not sure if that has many with a class arg is valid, but that
+    can be looked up)
+- [ ] consider multiple chosen answers?
 
-* Configuration
+## Approach
 
-* Database creation
+The plan is to use Stack Overflow as a model for this (also Quora etc).
 
-* Database initialization
+The basic data model is
 
-* How to run the test suite
+```
+User -< Question
+Question -< Answer
+User -< Answer
+User -< AnsweredQuestion, through: :answer
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+The last one may be a "future requirement", pending time.
 
-* Deployment instructions
+### User modelling and auth
 
-* ...
+For the sake of getting this complete in a short amount of time, I'm using
+Clearance for user modelling and auth. It's clean, simple, and fast. If this
+were a real production application, I'd be doing more research/working with
+stakeholders to identify more concrete needs than the current requirement of
+"shouldn't take more than a couple hours".
+
+### Using basic Rails rendered views instead of an SPA
+
+Currently there's no need for any kind of highly interactive functionality, so
+heavy JS isn't required. UJS is plenty.
+
+### Testing
+
+This is pretty light on tests, intentionally--most of the code is very basic
+Rails, and so tests would be testing the framework as much as the application.
+
+Things that will need testing are usually business logic/requirements:
+
+- [ ] authorization and access (feature spec)
+- [ ] answering questions
+- [ ] protecting the user/question/user/answer relationships
+- [ ] if implemented, the user -< answered questions relationship
+
