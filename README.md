@@ -2,9 +2,9 @@
 
 ## Plan:
 
-- [ ] set up bootstrap
-- [ ] add simple user model (using clearance for auth, for simplicity)
-- [ ] add basic question scaffold
+- [x] set up bootstrap
+- [x] add simple user model (using clearance for auth, for simplicity)
+- [x] add basic question scaffold
   - handle auth
   - belongs_to user
   - title:string
